@@ -1,0 +1,34 @@
+2024/03/02 21:47
+Primeira venda: 01/01/2023
+Última venda: 27/03/2023
+Quantidade dos diferentes itens vendidos: 65
+
+id,produto,quantidade,preço,data
+1,camiseta,2,29.90,01/01/2023
+2,calça,5,80.00,02/01/2023
+3,sapato,3,100.00,03/01/2023
+4,meia,20,5.00,04/01/2023
+5,cinto,8,15.00,05/01/2023
+6,camisa,7,40.00,06/01/2023
+7,bermuda,6,50.00,07/01/2023
+8,tênis,4,120.00,08/01/2023
+9,bone,12,10.00,09/01/2023
+10,casaco,2,150.00,10/01/2023
+
+2024/03/03 15:34
+Primeira venda: 07/02/2023
+Última venda: 21/02/2023
+Quantidade dos diferentes itens vendidos: 12
+
+id,produto,quantidade,preço,data
+1,cafeteira elétrica,3,50.00,07/02/2023
+2,liquidificador,5,35.00,08/02/2023
+3,torradeira,4,25.00,09/02/2023
+4,panela elétrica de arroz,2,60.00,10/02/2023
+5,ferro de passar roupa,6,30.00,11/02/2023
+6,aspirador de pó,3,100.00,12/02/2023
+7,ventilador de mesa,4,40.00,13/02/2023
+8,ar-condicionado portátil,1,300.00,14/02/2023
+9,liquidificador,8,45.00,15/02/2023
+10,cafeteira elétrica,2,55.00,16/02/2023
+
