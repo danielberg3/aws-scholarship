@@ -1,0 +1,134 @@
+CREATE TABLE tb_cliente(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nome VARCHAR(50) NOT NULL,
+	cidade VARCHAR(50) NOT NULL,
+	estado VARCHAR(50) NOT NULL,
+	pais VARCHAR(50) NOT NULL
+);
+
+
+
+CREATE TABLE tb_combustivel(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	tipo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE tb_carro(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	idCombustivel INT,
+	quilometros INT NOT NULL,
+	chassi VARCHAR(50) NOT NULL,
+	marca VARCHAR(50) NOT NULL,
+	modelo VARCHAR(50) NOT NULL,
+	ano INT NOT NULL,
+	
+	FOREIGN KEY(idCombustivel)
+		REFERENCES tb_combustivel(id)
+);
+
+CREATE TABLE tb_vendedor(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nome VARCHAR(50) NOT NULL,
+	sexo CHAR(1) NOT NULL,
+	estado VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE tb_locacao(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	idCliente INT,
+	idCarro INT,
+	idVendedor INT,	
+	dataLocacao DATE NOT NULL,
+	horaLocacao TIME NOT NULL,
+	quantidadeDias INT NOT NULL,
+	valorDiaria NUMERIC(10,2) NOT NULL,
+	dataEntrega DATE NOT NULL,
+	horaEntrega TIME NOT NULL,
+	
+	FOREIGN KEY(idCliente)
+		REFERENCES tb_cliente(id)
+		
+	FOREIGN KEY(idCarro)
+		REFERENCES tb_carro(id)
+		
+	FOREIGN KEY(idVendedor)
+		REFERENCES tb_vendedor(id)
+);
+
+-- INSERÇÕES
+
+INSERT INTO tb_cliente (nome ,cidade ,estado ,pais) VALUES
+	 ('Cliente dois','São Paulo','São Paulo','Brasil'),
+	 ('Cliente tres','Rio de Janeiro','Rio de Janeiro','Brasil'),
+	 ('Cliente quatro','Rio de Janeiro','Rio de Janeiro','Brasil'),
+	 ('Cliente cinco','Manaus','Amazonas','Brasil'),
+	 ('Cliente seis','Belo Horizonte','Minas Gerais','Brasil'),
+	 ('Cliente dez','Rio Branco','Acre','Brasil'),
+	 ('Cliente vinte','Macapá','Amapá','Brasil'),
+	 ('Cliente vinte e dois','Porto Alegre','Rio Grande do Sul','Brasil'),
+	 ('Cliente vinte e tres','Eusébio','Ceará','Brasil'),
+	 ('Cliente vinte e seis','Campo Grande','Mato Grosso do Sul','Brasil');
+	
+	INSERT INTO tb_combustivel (tipo) VALUES
+	 ('Gasolina'),
+	 ('Etanol'),
+	 ('Flex'),
+	 ('Diesel');
+	
+	INSERT INTO tb_carro  (quilometros ,chassi ,marca ,idCombustivel ,modelo ,ano) VALUES
+	 (1800,'AAAKNS8JS76S39','Toyota',3,'Corolla XEI',2023),
+	 (10000,'AKIUNS1JS76S39','Nissan',2,'Versa',2019),
+	 (121700,'DKSHKNS8JS76S39','VW',1,'Fusca 78',1978),
+	 (55000,'LLLUNS1JS76S39','Nissan',2,'Versa',2020),
+	 (28000,'MSLUNS1JS76S39','Nissan',4,'Frontier',2022),
+	 (21800,'SKIUNS8JS76S39','Nissan',1,'Versa',2019),
+	 (212800,'SSIUNS8JS76S39','Fiat',1,'Fiat 147',1996),
+	 (211800,'LKIUNS8JS76S39','Fiat',1,'Fiat 147',1996),
+	 (25412,'AKJHKN98JY76539','Fiat',1,'Fiat Uno',2000),
+	 (20000,'IKJHKN98JY76539','Fiat',1,'Fiat Palio',2010);
+	
+	INSERT INTO tb_vendedor (nome ,sexo ,estado) VALUES
+	 ('Vendedor cinco','M','São Paulo'),
+	 ('Vendedora seis','F','São Paulo'),
+	 ('Vendedora sete','F','Rio de Janeiro'),
+	('Vendedora oito','F','Minas Gerais'),
+	('Vendedor dezesseis','M','Amazonas'),
+	 ('Vendedor trinta','M','Rio Grande do Sul'),
+	 ('Vendedor trinta e um','M','Ceará'),
+	 ('Vendedora trinta e dois','F','Mato Grosso do Sul');
+	
+	
+INSERT INTO tb_locacao(idCliente ,idCarro ,idVendedor ,dataLocacao ,horaLocacao,quantidadeDias ,valorDiaria ,horaEntrega ,dataEntrega) VALUES
+	 (1,9,1,'2015-01-10','10:00',2,100,'10:00','2015-01-12'),
+	 (1,9,1,'2015-02-10','12:00',2,100,'12:00','2015-02-12'),
+	 (2,10,2,'2015-02-13','12:00',2,150,'12:00','2015-02-15'),
+	 (3,10,2,'2015-02-15','13:00',5,150,'13:00','2015-02-20'),
+	 (3,10,3,'2015-03-02','14:00',5,150,'14:00','2015-03-07'),
+	 (5,3,4,'2016-03-02','14:00',10,250,'14:00','2016-03-12'),
+	 (5,3,4,'2016-08-02','14:00',10,250,'14:00','2016-08-12'),
+	 (3,3,2,'2017-01-02','18:00',10,250,'18:00','2017-01-12'),
+	 (3,3,2,'2018-01-02','18:00',10,280,'18:00','2018-01-12'),
+	 (6,8,5,'2018-03-02','18:00',10,50,'18:00','2018-03-12'),
+	 (7,7,5,'2018-04-01','11:00',10,50,'11:00','2018-04-11'),
+	 (7,6,5,'2020-04-01','11:00',10,150,'11:00','2020-04-11'),
+	 (8,2,6,'2022-05-01','8:00',20,150,'18:00','2022-05-21'),
+	 (8,2,6,'2022-06-01','8:00',20,150,'18:00','2022-06-21'),
+	 (8,2,6,'2022-07-01','8:00',20,150,'18:00','2022-07-21'),
+	 (8,2,6,'2022-08-01','8:00',20,150,'18:00','2022-07-21'),
+	 (9,4,7,'2022-09-01','8:00',20,150,'18:00','2022-09-21'),
+	 (9,4,7,'2022-10-01','8:00',20,150,'18:00','2022-10-21'),
+	 (9,4,7,'2022-11-01','8:00',20,150,'18:00','2022-11-21'),
+	 (4,1,5,'2023-01-02','18:00',10,880,'18:00','2023-01-12'),
+	 (4,1,5,'2023-01-15','18:00',10,880,'18:00','2023-01-25'),
+	 (10,5,8,'2023-01-25','8:00',5,600,'18:00','2023-01-30'),
+	 (10,5,8,'2023-01-31','8:00',5,600,'18:00','2023-02-05'),
+	 (10,5,8,'2023-02-06','8:00',5,600,'18:00','2023-02-11'),
+	 (10,5,8,'2023-02-12','8:00',5,600,'18:00','2023-02-17'),
+	 (10,5,8,'2023-02-18','8:00',1,600,'18:00','2023-02-19');
+	
+	
+	SELECT * from tb_cliente  
+	SELECT * from tb_carro  
+	SELECT * from tb_combustivel
+	SELECT * from tb_locacao
+	SELECT * from tb_vendedor

@@ -13,13 +13,20 @@ Entre as coisas que posso declarar como meus hobbies estão: ler livros de mitol
 * Postgresql
 * Mysql
 * Html, CSS e javascript
+* Análise de dados
+* Modelo relacional
+* Modelo dimensional
+* Vendas AWS
 
-No momento (28/02/2024) estou finalizando a Sprint 1, onde obtive conhecimentos em Git, Gitbug, Markdown e linux. Conhecimentos estes que foram consolidados através do desafio 1.
+No momento (28/02/2024) estou finalizando a Sprint 1, onde obtive conhecimentos em Git, Github, Markdown e linux. Conhecimentos estes que foram consolidados através do desafio 1.
+
+No momento (15/03/2024) estou finalizando a Sprint 2, onde obtive conhecimentos em análise de dados, modelagem relacional, modelagem dimensional e vendas dos serviços AWS. Conhecimentos estes que foram consolidados através do desafio 2.
 
 
 ## Sprints 
 
-1. [Sprint 1](Sprint%201/README.md)
+1. [Sprint 01](Sprint%201/README.md)
+1. [Sprint 02](Sprint%202//README.md)
 
 
 ## Desafio

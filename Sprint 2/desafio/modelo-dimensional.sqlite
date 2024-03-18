@@ -1,0 +1,250 @@
+
+
+-- DIMENSÃO CLIENTE
+
+CREATE VIEW dim_cliente AS
+SELECT 
+	id,
+	nome
+FROM tb_cliente;
+
+-- DIMENSÃO CARRO
+
+CREATE VIEW dim_carro AS
+SELECT
+	id,
+	quilometros,
+	chassi
+FROM tb_carro;
+
+
+-- DIMENSÃO COMBUSTÍVEL
+
+CREATE VIEW dim_combustivel AS
+SELECT
+	id,
+	tipo
+FROM tb_combustivel;
+
+
+-- DIMENSÃO VENDEDOR
+
+CREATE VIEW dim_vendedor AS
+SELECT 
+	id,
+	nome
+FROM tb_vendedor;
+
+
+-- DIMENSÃO SEXO
+
+CREATE VIEW dim_sexo AS
+SELECT
+    ROW_NUMBER() OVER() AS id,
+    sexo
+FROM 
+    (SELECT DISTINCT sexo FROM tb_vendedor);
+
+-- DIMENSÃO CIDADE
+   
+CREATE VIEW dim_cidade AS
+SELECT
+	ROW_NUMBER() OVER()  AS id,
+	cidade
+FROM 
+	(SELECT DISTINCT cidade FROM tb_cliente);
+
+-- DIMENSÃO ESTADO
+   
+CREATE VIEW dim_estado AS
+SELECT
+	ROW_NUMBER() OVER()  AS id,
+	estado
+FROM 
+	(SELECT DISTINCT estado FROM tb_cliente);
+
+
+-- DIMENSÃO PAÍS
+   
+CREATE VIEW dim_pais AS
+SELECT
+	ROW_NUMBER() OVER()  AS id,
+	pais
+FROM 
+	(SELECT DISTINCT pais FROM tb_cliente);
+
+
+-- DIMENSÃO MARCA
+   
+CREATE VIEW dim_marca AS
+SELECT
+	ROW_NUMBER() OVER()  AS id,
+	marca
+FROM 
+	(SELECT DISTINCT marca FROM tb_carro);
+
+
+-- DIMENSÃO MODELO
+   
+CREATE VIEW dim_modelo AS
+SELECT
+	ROW_NUMBER() OVER()  AS id,
+	modelo
+FROM 
+	(SELECT DISTINCT modelo FROM tb_carro);
+
+-- DIMENSÃO ANO
+
+CREATE VIEW dim_ano AS
+SELECT 
+    ROW_NUMBER() OVER () AS id,
+    ano
+FROM
+    (WITH data_ano AS (
+        SELECT CAST(ano AS TEXT) AS ano FROM tb_carro 
+        UNION ALL
+        SELECT strftime('%Y', dataLocacao) AS ano FROM tb_locacao 
+        UNION ALL
+        SELECT strftime('%Y', dataEntrega) AS ano FROM tb_locacao
+    )
+    SELECT DISTINCT ano FROM data_ano);
+   
+   -- DIMENSÃO MÊS
+
+CREATE VIEW dim_mes AS
+SELECT 
+    ROW_NUMBER() OVER () AS id,
+    mes
+FROM
+    (WITH data_mes AS (       
+        SELECT strftime('%m', dataLocacao) AS mes FROM tb_locacao 
+        UNION ALL
+        SELECT strftime('%m', dataEntrega) AS mes FROM tb_locacao
+    )
+    SELECT DISTINCT mes FROM data_mes);
+   
+      -- DIMENSÃO DIA
+
+CREATE VIEW dim_dia AS
+SELECT 
+    ROW_NUMBER() OVER () AS id,
+    dia
+FROM
+    (WITH data_dia AS (       
+        SELECT strftime('%d', dataLocacao) AS dia FROM tb_locacao 
+        UNION ALL
+        SELECT strftime('%d', dataEntrega) AS dia FROM tb_locacao
+    )
+    SELECT DISTINCT dia FROM data_dia);
+   
+   
+   -- TABELA FATO
+   
+ CREATE VIEW fato_locacao AS
+  SELECT 
+  	locacao.id,
+  	locacao.horaLocacao,
+    ano_data_locacao.id AS ano_locacao_id,
+  	mes_data_locacao.id AS mes_locacao_id,
+  	dia_data_locacao.id AS dia_locacao_id,
+  	locacao.horaEntrega,
+  	ano_data_entrega.id AS ano_entrega_id,
+  	mes_data_entrega.id AS mes_entrega_id,
+  	dia_data_entrega.id AS dia_entrega_id,
+  	locacao.quantidadeDias,
+  	locacao.valorDiaria,
+  	locacao.idCliente,
+  	cidade.id AS cliente_cidade_id,
+  	estado.id AS cliente_estado_id,
+  	pais.id AS cliente_pais_id,
+  	locacao.idCarro,
+  	marca.id AS carro_marca_id,
+  	modelo.id AS carro_modelo_id,
+  	ano_carro.id AS ano_carro_id,
+  	combustivel.id AS carro_combustivel_id,
+  	locacao.idVendedor,
+  	sexo.id AS vendedor_sexo_id,
+  	estado_vendedor.id AS vendedor_estado_id
+  	
+  FROM 
+  	tb_locacao as locacao
+  	LEFT JOIN dim_ano as ano_data_entrega
+  		on  strftime('%Y', locacao.dataEntrega) = ano_data_entrega.ano
+  	LEFT JOIN dim_ano as ano_data_locacao
+  		on  strftime('%Y', locacao.dataLocacao) = ano_data_locacao.ano 
+  		
+  	LEFT JOIN dim_mes as mes_data_entrega
+  		on  strftime('%m', locacao.dataEntrega) = mes_data_entrega.mes
+  	LEFT JOIN dim_mes as mes_data_locacao
+  		on  strftime('%m', locacao.dataLocacao) = mes_data_locacao.mes	
+  		
+	LEFT JOIN dim_dia as dia_data_entrega
+  		on  strftime('%d', locacao.dataEntrega) = dia_data_entrega.dia
+	LEFT JOIN dim_dia as dia_data_locacao
+		on  strftime('%d', locacao.dataLocacao) = dia_data_locacao.dia
+  		
+	LEFT JOIN tb_cliente as cliente_cidade
+		on  locacao.idCliente = cliente_cidade.id
+	LEFT JOIN dim_cidade as cidade
+		on  cliente_cidade.cidade = cidade.cidade
+		
+	LEFT JOIN tb_cliente as cliente_estado
+		on  locacao.idCliente = cliente_estado.id
+	LEFT JOIN dim_estado as estado
+		on  cliente_estado.estado = estado.estado
+		
+	LEFT JOIN tb_cliente as cliente_pais
+		on  locacao.idCliente = cliente_pais.id
+	LEFT JOIN dim_pais as pais
+		on  cliente_pais.pais = pais.pais
+		
+	LEFT JOIN tb_carro as carro_marca
+		on  locacao.idCarro = carro_marca.id
+	LEFT JOIN dim_marca as marca
+		on  carro_marca.marca = marca.marca
+		
+	LEFT JOIN tb_carro as carro_modelo
+		on  locacao.idCarro = carro_modelo.id
+	LEFT JOIN dim_modelo as modelo
+		on  carro_modelo.modelo = modelo.modelo
+		
+	LEFT JOIN tb_carro as carro_ano
+		on  locacao.idCarro = carro_ano.id
+	LEFT JOIN dim_ano as ano_carro
+		on  carro_ano.ano = ano_carro.ano
+		
+	LEFT JOIN tb_carro as carro
+		on  locacao.idCarro = carro.id		
+	LEFT JOIN tb_combustivel  as tipo_combustivel
+		on carro.idCombustivel = tipo_combustivel.id
+	LEFT JOIN dim_combustivel as combustivel
+		on  tipo_combustivel.tipo = combustivel.tipo
+		
+	LEFT JOIN tb_vendedor as vendedor_sexo
+		on  locacao.idVendedor = vendedor_sexo.id		
+	LEFT JOIN dim_sexo as sexo
+		on  vendedor_sexo.sexo = sexo.sexo
+	
+  	LEFT JOIN tb_vendedor as vendedor_estado
+		on  locacao.idVendedor = vendedor_estado.id
+	LEFT JOIN dim_estado as estado_vendedor
+		on  vendedor_estado.estado = estado_vendedor.estado;
+		
+		
+  
+-- SELECT DIMENSÕES E TABELA FATO  
+ 
+  select * from dim_cidade
+  select * from dim_combustivel
+  select * from dim_estado
+  select * from dim_pais
+  select * from dim_ano
+  select * from dim_mes
+  select * from dim_dia
+  select * from dim_carro
+  select * from dim_combustivel
+  select * from dim_marca
+  select * from dim_modelo
+  select * from dim_cliente
+  select * from dim_vendedor
+  select * from fato_locacao
