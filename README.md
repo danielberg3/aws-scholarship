@@ -34,6 +34,8 @@ No momento (14/04/2024) estou finalizando a Sprint 4, onde obtive conhecimentos 
 
 No momento (28/04/2024) estou finalizando a Sprint 5, onde obtive conhecimentos sobre o funcionamento dos serviços aws, bem como um treinamento para tirar a primeira certificação. Conhecimentos estes que foram consolidados através do desafio 5, no qual pude utilizar o serviço s3 da aws em conjunto com python e boto3.
 
+No momento (12/05/2024) estou finalizando a Sprint 6, onde obtive conhecimentos sobre alguns dos serviços de analytics da AWS. Parte dos conhecimentos se deram também devido aos exercícios e ao desafio da sprint, nos quais tive contato direto com alguns serviços e ferramentas, como: Amazon S3, Amazon Athena, AWS Lambda, Boto3, entre outros.
+
 ## Sprints 
 
 1. [Sprint 01](Sprint%201/README.md)
@@ -41,6 +43,9 @@ No momento (28/04/2024) estou finalizando a Sprint 5, onde obtive conhecimentos 
 1. [Sprint 03](Sprint%203/README.md)
 1. [Sprint 04](Sprint%204/README.md)
 1. [Sprint 05](Sprint%205/README.md)
+1. [Sprint 06](Sprint%206/README.md)
 
 
 ## Desafio
+
+1. [Etapas do desafio](Desafio/README.md)
