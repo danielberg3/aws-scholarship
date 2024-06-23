@@ -19,8 +19,9 @@
 
 1. [Etapa I](etapa-1/README.md)
 1. [Etapa II](etapa-2/README.md)
-1. [Etapa II](etapa-3/README.md)
+1. [Etapa III](etapa-3/README.md)
+1. [Etapa IV](etapa-4/README.md)
 
+## Melhorias
 
-
-
+1. [Função Lambda](etapa-2/melhorias/README.ipynb)
