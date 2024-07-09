@@ -46,6 +46,8 @@ No momento (12/05/2024) estou finalizando a Sprint 6, onde obtive conhecimentos 
 1. [Sprint 06](Sprint%206/README.md)
 1. [Sprint 07](Sprint%207/README.md)
 1. [Sprint 08](Sprint%208/README.md)
+1. [Sprint 09](Sprint%209/README.md)
+1. [Sprint 10](Sprint%2010/README.md)
 
 
 ## Desafio
